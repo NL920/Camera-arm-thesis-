@@ -47,7 +47,7 @@
                        type="hinge"
                        axis="0 1 0"
                        limited="true"
-                       range="-1.57 1.57"/>
+                       range="-1.0 1.2"/>
 
                 <geom type="mesh"
                       mesh="link1"
@@ -72,7 +72,12 @@
                                type="hinge"
                                axis="0 1 0"
                                limited="true"
-                               range="-1.57 1.57"/>
+                               range="-1.5 0"
+                               solreflimit="0.005 1"/>
+                        <!-- Lokiec zgina sie tylko w strone ujemna (bez przeprostu).
+                             0 = wyprostowany, -1.5 rad (~86 st.) = maks. zgiecie;
+                             przy ~89 st. link2 uderza w link1. -->
+
 
                         <geom type="mesh"
                               mesh="link2"
@@ -99,7 +104,7 @@
           kv="4"
           forcelimited="true"
           forcerange="-5 5"
-          ctrlrange="-1.57 1.57"/>
+          ctrlrange="-1.0 1.2"/>
 
         <position name="motor2"
                   joint="joint2"
@@ -107,6 +112,6 @@
                   kv="4"
                   forcelimited="true"
                   forcerange="-5 5"
-                  ctrlrange="-1.57 1.57"/>
+                  ctrlrange="-1.5 0"/>
     </actuator>
 </mujoco>
