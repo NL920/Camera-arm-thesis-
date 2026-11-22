@@ -1,23 +1,29 @@
 
 <mujoco model="first_robot">
     <compiler angle="radian"/>
+    <option integrator="implicitfast"/>
+
+    <!-- Aluminium (lite): 2700 kg/m3 -->
+    <default>
+        <geom density="2700"/>
+    </default>
 
     <asset>
         <mesh name="base"
               file="meshes/base.stl"
-              scale="0.01 0.01 0.01"/>
+              scale="0.001 0.001 0.001"/>
 
         <mesh name="link1"
               file="meshes/link1.stl"
-              scale="0.01 0.01 0.01"/>
+              scale="0.001 0.001 0.001"/>
 
         <mesh name="midjoint2"
               file="meshes/midjoint2.stl"
-              scale="0.01 0.01 0.01"/>
+              scale="0.001 0.001 0.001"/>
 
         <mesh name="link2"
               file="meshes/link2.stl"
-              scale="0.01 0.01 0.01"/>
+              scale="0.001 0.001 0.001"/>
     </asset>
 
     <worldbody>
@@ -35,7 +41,7 @@
                   contype="0"
                   conaffinity="0"/>
 
-            <body name="link1" pos="0 0 0.36">
+            <body name="link1" pos="0 0 0.036">
 
                 <joint name="joint1"
                        type="hinge"
@@ -49,12 +55,8 @@
                       contype="0"
                       conaffinity="0"/>
 
-                <inertial pos="0 0 0.15"
-                mass="0.5"
-                diaginertia="0.001 0.001 0.001"/>
-
                 <!-- Sztywne polaczenie z link1 -->
-                <body name="midjoint2" pos="0 0 3.08">
+                <body name="midjoint2" pos="0 0 0.308">
 
                     <geom type="mesh"
                           mesh="midjoint2"
@@ -64,7 +66,7 @@
                     
 
                     <!-- Drugie polaczenie obrotowe -->
-                    <body name="link2" pos="0 0 0.05">
+                    <body name="link2" pos="0 0 0.005">
 
                         <joint name="joint2"
                                type="hinge"
@@ -80,7 +82,7 @@
 
                                 <!-- efektor -->
                               <site name="end_effector"
-                                pos="0 0 2.23"
+                                pos="0 0 0.223"
                                 size="0.015"
                                 rgba="1 0 0 1"/>
 
@@ -94,17 +96,17 @@
         <position name="motor1" 
           joint="joint1"
           kp="100"
-          kv="20"
+          kv="4"
           forcelimited="true"
-          forcerange="-500 500"
+          forcerange="-5 5"
           ctrlrange="-1.57 1.57"/>
 
         <position name="motor2"
                   joint="joint2"
-                  kp="5"
-                  kv="500"
+                  kp="100"
+                  kv="4"
                   forcelimited="true"
-                  forcerange="-500 500"
+                  forcerange="-5 5"
                   ctrlrange="-1.57 1.57"/>
     </actuator>
 </mujoco>
