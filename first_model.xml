@@ -1,0 +1,110 @@
+
+<mujoco model="first_robot">
+    <compiler angle="radian"/>
+
+    <asset>
+        <mesh name="base"
+              file="meshes/base.stl"
+              scale="0.01 0.01 0.01"/>
+
+        <mesh name="link1"
+              file="meshes/link1.stl"
+              scale="0.01 0.01 0.01"/>
+
+        <mesh name="midjoint2"
+              file="meshes/midjoint2.stl"
+              scale="0.01 0.01 0.01"/>
+
+        <mesh name="link2"
+              file="meshes/link2.stl"
+              scale="0.01 0.01 0.01"/>
+    </asset>
+
+    <worldbody>
+        <light pos="0 0 4" dir="0 0 -1"/>
+        <camera name="camera_top"
+        mode="targetbody"
+        target="base"
+        pos="2 -3 4"
+        fovy="50"/>
+        <body name="base" pos="0 0 0">
+
+            <geom type="mesh"
+                  mesh="base"
+                  rgba="0.2 0.5 0.8 1"
+                  contype="0"
+                  conaffinity="0"/>
+
+            <body name="link1" pos="0 0 0.36">
+
+                <joint name="joint1"
+                       type="hinge"
+                       axis="0 1 0"
+                       limited="true"
+                       range="-1.57 1.57"/>
+
+                <geom type="mesh"
+                      mesh="link1"
+                      rgba="0.2 0.5 0.8 1"
+                      contype="0"
+                      conaffinity="0"/>
+
+                <inertial pos="0 0 0.15"
+                mass="0.5"
+                diaginertia="0.001 0.001 0.001"/>
+
+                <!-- Sztywne polaczenie z link1 -->
+                <body name="midjoint2" pos="0 0 3.08">
+
+                    <geom type="mesh"
+                          mesh="midjoint2"
+                          rgba="0.8 0.4 0.2 1"
+                          contype="0"
+                          conaffinity="0"/>
+                    
+
+                    <!-- Drugie polaczenie obrotowe -->
+                    <body name="link2" pos="0 0 0.05">
+
+                        <joint name="joint2"
+                               type="hinge"
+                               axis="0 1 0"
+                               limited="true"
+                               range="-1.57 1.57"/>
+
+                        <geom type="mesh"
+                              mesh="link2"
+                              rgba="0.2 0.8 0.3 0.5"
+                              contype="0"
+                              conaffinity="0"/>
+
+                                <!-- efektor -->
+                              <site name="end_effector"
+                                pos="0 0 2.23"
+                                size="0.015"
+                                rgba="1 0 0 1"/>
+
+                    </body>
+                </body>
+            </body>
+        </body>
+    </worldbody>
+
+    <actuator>
+        <position name="motor1" 
+          joint="joint1"
+          kp="100"
+          kv="20"
+          forcelimited="true"
+          forcerange="-500 500"
+          ctrlrange="-1.57 1.57"/>
+
+        <position name="motor2"
+                  joint="joint2"
+                  kp="5"
+                  kv="500"
+                  forcelimited="true"
+                  forcerange="-500 500"
+                  ctrlrange="-1.57 1.57"/>
+    </actuator>
+</mujoco>
