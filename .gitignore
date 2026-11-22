@@ -1,0 +1,12 @@
+# Python environments (create locally, see dof2/requirements.txt)
+.venv/
+.venv-*/
+venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# OS junk
+.DS_Store
+Thumbs.db
